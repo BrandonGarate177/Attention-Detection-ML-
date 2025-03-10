@@ -6,7 +6,7 @@
 - HeadPose
 
 
-##Training Stage: 
+## Training Stage: 
 ### Created a script (branched), which collected data/pictures of user labeled Attentive vs. Distracted. 
 
 
