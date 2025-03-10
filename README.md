@@ -5,5 +5,10 @@
 - Eye State (eye tracking)
 - HeadPose
 
+
+##Training Stage: 
+### Created a script (branched), which collected data/pictures of user labeled Attentive vs. Distracted. 
+
+
 ## Goal 
 ### --> to create and train a Model which detects wheter the user is paying attention or not. To be able to deploy this model on different types of projects. 
