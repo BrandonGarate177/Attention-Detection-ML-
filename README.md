@@ -9,7 +9,7 @@
 ### Created a script (branched), which collected data/pictures of user labeled Attentive vs. Distracted. 
 #### fire.py -- Collects data:
 - uses openCv and deepface to track face
-- Saves data by taking a picture every now n then and by added controls (a = attentive, b = distracted)
+- Saves data by taking a picture every now n then and by added keybinds (a = attentive, b = distracted)
 - To save to different folders --> change the directory in the top couple lines of code
 - ENSURE you are being accurate with the data or train_model.py will hate you
 
@@ -21,7 +21,18 @@
 
 #### train_model.py
 - uses tensorflow (thanks google) to train the model and save the h5 file. SWAG
+- h5 file, and the traning files / folders, are hidden by the .gitignore file
+- Using the directories dataset/train, /validation, /test
 
 
+  
 ## Goal 
 ### --> to create and train a Model which detects wheter the user is paying attention or not. To be able to deploy this model on different types of projects. 
+
+
+## current issues: 
+- Does NOT work on mac, --> something about the libraries not having support for my cpu
+### Imports not working correctly in venv 
+
+* from tensorflow.keras.preprocessing.image import ImageDataGenerator
+* from tensorflow.keras import layers, models 
