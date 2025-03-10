@@ -3,13 +3,18 @@ import mediapipe as mp
 import os
 import time
 
-# Directories for saving images.
+# need to ensure that we dont use the gpu as that will ruin the preformance
+# remember we want to run this on the raspberry pi
+# or something like that where we dont have a gpu only a really trashy cpu
+
+
+# Where to save the training data. 
 attentive_dir = 'dataset/test/attentive'
 distracted_dir = 'dataset/test/distracted'
 os.makedirs(attentive_dir, exist_ok=True)
 os.makedirs(distracted_dir, exist_ok=True)
 
-# Initialize MediaPipe Face Mesh.
+#Face mesh model 
 mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh(
     static_image_mode=False,
@@ -18,12 +23,12 @@ face_mesh = mp_face_mesh.FaceMesh(
     min_tracking_confidence=0.5
 )
 
-# Set up video capture.
+# Video capture, the zero index refers to the default camera.
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-# Get frame dimensions.
+# frame width and height
 ret, frame = cap.read()
 if not ret:
     raise Exception("Failed to capture frame.")
@@ -36,7 +41,7 @@ x_max = int(width * (1 - zone_margin))
 y_min = int(height * zone_margin)
 y_max = int(height * (1 - zone_margin))
 
-# Time-based trigger parameters.
+#Time based triggers 
 no_face_frame_threshold = 30  # Frames without detecting a face.
 no_face_counter = 0
 save_cooldown = 2.0  # Seconds between automatic saves.
@@ -47,12 +52,11 @@ while True:
     if not ret:
         break
 
-    # Convert frame to RGB for MediaPipe.
+    # rgb color ts 
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = face_mesh.process(frame_rgb)
 
-    attention_status = "attentive"  # Default status.
-    face_detected = False
+    attention_status = "attentive"  
     face_bbox = None
 
     if results.multi_face_landmarks:
@@ -144,3 +148,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+ 
